@@ -318,7 +318,7 @@ const browser = await puppeteer.launch({
 await page.setUserAgent('Custom User Agent String');
 ```
 
-### Request Interceptio
+### Request Interception
 
 ```javascript
 await page.setRequestInterception(true);
