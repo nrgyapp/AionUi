@@ -136,6 +136,35 @@ For recalculating formulas in existing spreadsheets, use the recalc script:
 python skills/xlsx/recalc.py <input.xlsx> <output.xlsx>
 ```
 
+### Advanced Excel Automation
+
+For complex Excel operations, use the advanced automation script:
+
+```bash
+# Analyze data and generate statistics
+node skills/xlsx/excel_advanced.js --action analyze \
+  --input data.xlsx \
+  --output analysis.xlsx
+
+# Add autofilter and freeze panes
+node skills/xlsx/excel_advanced.js --action autofilter \
+  --input data.xlsx \
+  --output filtered.xlsx \
+  --range A1:E100
+
+# Compare two Excel files
+node skills/xlsx/excel_advanced.js --action compare \
+  --input file1.xlsx \
+  --file2 file2.xlsx \
+  --output comparison.json
+```
+
+The advanced script provides:
+- **Data analysis**: Generate statistics (min, max, avg, sum, unique counts) for all columns
+- **Autofilter**: Add filters and freeze header rows automatically
+- **File comparison**: Identify differences between two Excel files
+- **Chart metadata**: Prepare data for chart generation
+
 **Python Quick Reference**:
 
 ```python
@@ -262,6 +291,61 @@ python skills/pptx/ooxml/scripts/pack.py <input_directory> <output.pptx>
 
 # Validate PPTX structure
 python skills/pptx/ooxml/scripts/validate.py <file.pptx>
+```
+
+### Advanced PowerPoint Generation
+
+For JSON-driven presentation creation with custom layouts:
+
+```bash
+# Create presentation from JSON configuration
+node skills/pptx/scripts/pptx_advanced.js --action from-json \
+  --input slides.json \
+  --output presentation.pptx
+
+# Create title slide
+node skills/pptx/scripts/pptx_advanced.js --action title-slide \
+  --title "My Presentation" \
+  --subtitle "Quarterly Review" \
+  --author "John Doe" \
+  --theme blue \
+  --output title.pptx
+
+# Create agenda slide
+node skills/pptx/scripts/pptx_advanced.js --action agenda \
+  --theme green \
+  --output agenda.pptx
+
+# Create comparison slide (before/after)
+node skills/pptx/scripts/pptx_advanced.js --action comparison \
+  --title "Process Improvement" \
+  --theme purple \
+  --output comparison.pptx
+```
+
+The advanced script provides:
+- **JSON-driven**: Define entire presentations in JSON format
+- **Multiple themes**: Blue, green, red, purple color schemes
+- **Pre-built layouts**: Title, agenda, comparison, chart, bullet slides
+- **Chart integration**: Bar, line, pie charts with data
+- **Table support**: Formatted tables with styling
+
+**Example JSON structure** (see `skills/pptx/examples/sample_presentation.json`):
+```json
+{
+  "author": "Your Name",
+  "title": "Presentation Title",
+  "theme": "blue",
+  "slides": [
+    {
+      "elements": [
+        { "type": "title", "text": "Welcome" },
+        { "type": "bullet", "items": [...] },
+        { "type": "chart", "chartType": "bar", "data": [...] }
+      ]
+    }
+  ]
+}
 ```
 
 **Best Practices**:
@@ -563,6 +647,49 @@ doc["word/document.xml"].revert_deletion(del_node)  # Reject deletion
 
 # Save
 doc.save()
+```
+
+### Advanced Word Document Generation
+
+For JSON-driven document creation with professional formatting:
+
+```bash
+# Create document from JSON configuration
+node skills/docx/scripts/docx_advanced.js --action from-json \
+  --input content.json \
+  --output document.docx
+
+# Create formatted report with headers, footers, and TOC
+node skills/docx/scripts/docx_advanced.js --action report \
+  --title "Quarterly Business Report" \
+  --author "Jane Smith" \
+  --output report.docx
+
+# Create business letter
+node skills/docx/scripts/docx_advanced.js --action letter \
+  --author "John Doe" \
+  --output letter.docx
+```
+
+The advanced script provides:
+- **JSON-driven**: Define entire documents in JSON format
+- **Pre-built templates**: Report, letter, meeting notes
+- **Professional formatting**: Headers, footers, page numbers
+- **Table of contents**: Automatic TOC generation (when opened in Word)
+- **Structured content**: Headings, paragraphs, bullets, tables
+
+**Example JSON structure** (see `skills/docx/examples/sample_document.json`):
+```json
+{
+  "title": "Document Title",
+  "author": "Author Name",
+  "content": [
+    { "type": "heading", "level": 1, "text": "Chapter 1" },
+    { "type": "paragraph", "text": "Introduction text..." },
+    { "type": "bullet", "text": "Bullet point", "level": 0 },
+    { "type": "table", "rows": [[...], [...]] }
+  ]
+}
 ```
 
 **Best Practices**:
