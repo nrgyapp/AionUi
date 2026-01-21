@@ -565,6 +565,152 @@ python skills/docx/ooxml/scripts/pack.py <input_directory> <output.docx>
 
 ---
 
+id: chrome
+name: Chrome 浏览器自动化
+triggers: Chrome, 浏览器自动化, 仪表板, Data Studio, Google Analytics, GTM, 网页抓取, 监控网站, 截图, GA4, 分析, 数据看板
+
+---
+
+**描述**: 自动化 Chrome 浏览器交互，用于监控仪表板、提取网页数据和验证分析实现。
+
+**功能**:
+
+- 监控 Google Data Studio 仪表板的异常
+- 检测过时数据、加载问题和图表问题
+- 从网页表格和仪表板提取数据
+- 检查 Google Tag Manager (GTM) 配置
+- 查看 GA4 和分析数据层
+- 捕获截图用于比较
+- 自动化重复性网页任务
+
+**实现指南**:
+
+### 仪表板监控
+
+监控仪表板的异常和数据新鲜度：
+
+```bash
+# 单次检查
+node skills/chrome/scripts/monitor_dashboard.js \
+  --url "https://datastudio.google.com/reporting/..." \
+  --output dashboard_status.json
+
+# 多次检查的连续监控
+node skills/chrome/scripts/monitor_dashboard.js \
+  --url "https://datastudio.google.com/reporting/..." \
+  --checks 10 \
+  --interval 300 \
+  --output dashboard_status.json
+```
+
+监控脚本检测：
+- 错误消息和警报
+- 卡在加载状态
+- 空数据表
+- 无数据或大小不正确的图表
+- 缺失或过时的指标
+
+### GTM 和分析验证
+
+检查 Google Tag Manager 实现和数据层：
+
+```bash
+node skills/chrome/scripts/check_gtm.js \
+  --url "https://example.com" \
+  --output gtm_report.json
+```
+
+检查项包括：
+- GTM 容器存在和 ID
+- 数据层事件和结构
+- GA4 测量 ID
+- Universal Analytics（已弃用）使用
+- 分析网络请求
+
+### 数据提取
+
+使用 CSS 选择器从网页提取数据：
+
+```bash
+# 提取表格数据为 JSON
+node skills/chrome/scripts/extract_data.js \
+  --url "https://example.com/data" \
+  --selector "table.data-table" \
+  --format json \
+  --output data.json
+
+# 提取为 CSV
+node skills/chrome/scripts/extract_data.js \
+  --url "https://example.com/metrics" \
+  --selector ".metric-card" \
+  --format csv \
+  --output metrics.csv
+```
+
+### 基于 JavaScript 的自动化
+
+对于更复杂的自动化，直接在 JavaScript 中使用 Playwright：
+
+```javascript
+const { chromium } = require('playwright');
+
+async function automateTask() {
+  const browser = await chromium.launch({ headless: false });
+  const page = await browser.newPage();
+  
+  // 导航到仪表板
+  await page.goto('https://datastudio.google.com/reporting/...');
+  
+  // 等待数据加载
+  await page.waitForSelector('.data-loaded', { timeout: 30000 });
+  
+  // 提取指标
+  const metrics = await page.$$eval('.metric-value', elements => 
+    elements.map(el => ({
+      label: el.getAttribute('aria-label'),
+      value: el.textContent.trim()
+    }))
+  );
+  
+  // 截图
+  await page.screenshot({ path: 'dashboard.png', fullPage: true });
+  
+  // 检查错误
+  const errors = await page.$$('.error-message');
+  if (errors.length > 0) {
+    console.log('检测到错误:', errors.length);
+  }
+  
+  await browser.close();
+  return metrics;
+}
+```
+
+**异常检测模式**:
+
+监控系统检查常见的仪表板问题：
+
+1. **过时数据**: 指标在预期时间范围内未更新
+2. **加载失败**: 元素卡在加载状态
+3. **空可视化**: 图表或表格无数据
+4. **错误消息**: 可见的错误指示器或警报
+5. **交付问题**: 数据获取失败或网络错误
+6. **性能问题**: 加载时间慢或超时
+
+**最佳实践**:
+
+- 对于计划监控使用无头模式 (`--headless true`)
+- 为加载缓慢的仪表板设置适当的超时
+- 存储基线快照以用于异常检测比较
+- 在工作时间安排定期检查
+- 对连续故障发出警报，而不是单个实例
+- 检测到异常时捕获截图用于调试
+- 使用网络请求监控捕获 API 故障
+- 验证数据层结构与预期模式匹配
+- 在桌面和移动视图中测试 GTM 配置
+
+---
+
 id: task-orchestrator
 name: 多步骤任务规划
 triggers: 复杂任务, 多步骤, 规划, 组织, 分解, 编排, 项目计划, 工作流, complex task, multi-step

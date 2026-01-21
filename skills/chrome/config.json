@@ -1,0 +1,28 @@
+{
+  "headless": true,
+  "timeout": 30000,
+  "viewport": {
+    "width": 1920,
+    "height": 1080
+  },
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+  "defaultInterval": 300,
+  "retryAttempts": 3,
+  "screenshots": {
+    "enabled": true,
+    "directory": "screenshots",
+    "onError": true,
+    "onAnomaly": true
+  },
+  "monitoring": {
+    "checkTypes": [
+      "errors",
+      "loading",
+      "emptyTables",
+      "smallCharts",
+      "staleData"
+    ],
+    "alertThreshold": 2,
+    "consecutiveFailures": 3
+  }
+}
