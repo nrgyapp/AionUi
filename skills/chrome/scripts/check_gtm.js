@@ -76,16 +76,27 @@ async function checkGTM(config) {
     const requests = [];
     page.on('request', (request) => {
       const url = request.url();
-      if (
-        url.includes('google-analytics.com') ||
-        url.includes('googletagmanager.com') ||
-        url.includes('analytics.google.com')
-      ) {
-        requests.push({
-          url,
-          method: request.method(),
-          resourceType: request.resourceType(),
-        });
+      try {
+        const urlObj = new URL(url);
+        const hostname = urlObj.hostname;
+        // Check if hostname matches Google Analytics or Tag Manager domains
+        if (
+          hostname === 'www.google-analytics.com' ||
+          hostname === 'google-analytics.com' ||
+          hostname === 'www.googletagmanager.com' ||
+          hostname === 'googletagmanager.com' ||
+          hostname === 'analytics.google.com' ||
+          hostname.endsWith('.google-analytics.com') ||
+          hostname.endsWith('.googletagmanager.com')
+        ) {
+          requests.push({
+            url,
+            method: request.method(),
+            resourceType: request.resourceType(),
+          });
+        }
+      } catch (e) {
+        // Ignore invalid URLs
       }
     });
 
