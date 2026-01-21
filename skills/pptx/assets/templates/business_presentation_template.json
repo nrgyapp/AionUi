@@ -1,0 +1,105 @@
+{
+  "title": "Business Presentation",
+  "subtitle": "Q1 2025 Results and Strategic Outlook",
+  "author": "Executive Team",
+  "company": "Acme Corporation",
+  "subject": "Quarterly Business Review",
+  "includeTitle": true,
+  "branding": {
+    "backgroundColor": "FFFFFF",
+    "footerText": "Confidential - Internal Use Only",
+    "footerColor": "666666"
+  },
+  "titleSlide": {
+    "backgroundColor": "2E86C1",
+    "titleColor": "FFFFFF",
+    "subtitleColor": "E0E0E0",
+    "authorColor": "FFFFFF",
+    "notes": "Welcome everyone. Today we'll review our Q1 performance and discuss our strategic initiatives."
+  },
+  "slides": [
+    {
+      "title": "Agenda",
+      "bullets": [
+        "Financial Performance Overview",
+        "Key Achievements",
+        "Market Analysis",
+        "Strategic Initiatives",
+        "Q2 Outlook",
+        "Q&A"
+      ],
+      "notes": "This presentation will cover six main topics. We'll spend about 5 minutes on each section."
+    },
+    {
+      "title": "Financial Performance",
+      "chart": {
+        "type": "bar",
+        "title": "Quarterly Revenue Trend",
+        "seriesName": "Revenue ($M)",
+        "data": {
+          "labels": ["Q1 2024", "Q2 2024", "Q3 2024", "Q4 2024", "Q1 2025"],
+          "values": [4.5, 4.8, 5.0, 5.1, 5.2]
+        }
+      },
+      "notes": "Revenue has shown consistent growth, with Q1 2025 reaching $5.2M, a 15% YoY increase."
+    },
+    {
+      "title": "Key Achievements",
+      "columns": [
+        {
+          "bullets": [
+            "Product launches exceeded targets",
+            "Customer satisfaction up 12%",
+            "New market entries successful"
+          ]
+        },
+        {
+          "bullets": [
+            "Team expanded by 25%",
+            "Partnership agreements signed",
+            "Technology infrastructure upgraded"
+          ]
+        }
+      ],
+      "notes": "These achievements position us well for continued growth in Q2 and beyond."
+    },
+    {
+      "title": "Market Analysis",
+      "table": {
+        "rows": [
+          ["Segment", "Market Share", "Growth Rate", "Trend"],
+          ["Enterprise", "28%", "+3%", "↑"],
+          ["Mid-Market", "42%", "+2%", "↑"],
+          ["Small Business", "18%", "+1%", "→"],
+          ["Total", "31%", "+2.5%", "↑"]
+        ],
+        "columnWidths": [2.5, 2.0, 2.0, 2.5]
+      },
+      "notes": "We're gaining share across all segments, with strongest performance in enterprise."
+    },
+    {
+      "title": "Strategic Initiatives for Q2",
+      "bullets": [
+        "Launch AI-powered analytics platform",
+        "Expand into European markets",
+        "Enhance customer success programs",
+        "Accelerate product development cycle",
+        "Strengthen strategic partnerships"
+      ],
+      "notes": "These initiatives are designed to maintain our growth momentum and competitive advantage."
+    },
+    {
+      "title": "Q2 Outlook",
+      "content": "Based on current pipeline and market conditions, we project:\n\n• Revenue growth of 18-20% YoY\n• Margin improvement of 2-3%\n• Customer acquisition cost reduction of 10%\n• Product launches on track for mid-quarter\n\nRisks include supply chain challenges and competitive pressure, which we are actively mitigating.",
+      "backgroundColor": "F8F9FA",
+      "notes": "We're confident in our ability to meet these targets based on strong fundamentals."
+    },
+    {
+      "title": "Thank You",
+      "content": "Questions and Discussion",
+      "backgroundColor": "2E86C1",
+      "titleColor": "FFFFFF",
+      "notes": "Open floor for questions. Key team leads are here to provide additional details."
+    }
+  ]
+}

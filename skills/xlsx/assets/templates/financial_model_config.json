@@ -1,0 +1,15 @@
+{
+  "author": "Financial Analyst",
+  "projectionYears": 5,
+  "startYear": 2025,
+  "includeBalanceSheet": true,
+  "includeCashFlow": true,
+  "includeDashboard": true,
+  "assumptions": {
+    "baseRevenue": 1000000,
+    "growthRate": 0.15,
+    "cogsPercent": 0.40,
+    "opex": 200000
+  },
+  "description": "5-year financial projection model with income statement, balance sheet, cash flow, and dashboard"
+}
