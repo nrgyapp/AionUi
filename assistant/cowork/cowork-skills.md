@@ -136,6 +136,35 @@ For recalculating formulas in existing spreadsheets, use the recalc script:
 python skills/xlsx/recalc.py <input.xlsx> <output.xlsx>
 ```
 
+### Advanced Excel Automation
+
+For complex Excel operations, use the advanced automation script:
+
+```bash
+# Analyze data and generate statistics
+node skills/xlsx/excel_advanced.js --action analyze \
+  --input data.xlsx \
+  --output analysis.xlsx
+
+# Add autofilter and freeze panes
+node skills/xlsx/excel_advanced.js --action autofilter \
+  --input data.xlsx \
+  --output filtered.xlsx \
+  --range A1:E100
+
+# Compare two Excel files
+node skills/xlsx/excel_advanced.js --action compare \
+  --input file1.xlsx \
+  --file2 file2.xlsx \
+  --output comparison.json
+```
+
+The advanced script provides:
+- **Data analysis**: Generate statistics (min, max, avg, sum, unique counts) for all columns
+- **Autofilter**: Add filters and freeze header rows automatically
+- **File comparison**: Identify differences between two Excel files
+- **Chart metadata**: Prepare data for chart generation
+
 **Python Quick Reference**:
 
 ```python
@@ -262,6 +291,61 @@ python skills/pptx/ooxml/scripts/pack.py <input_directory> <output.pptx>
 
 # Validate PPTX structure
 python skills/pptx/ooxml/scripts/validate.py <file.pptx>
+```
+
+### Advanced PowerPoint Generation
+
+For JSON-driven presentation creation with custom layouts:
+
+```bash
+# Create presentation from JSON configuration
+node skills/pptx/scripts/pptx_advanced.js --action from-json \
+  --input slides.json \
+  --output presentation.pptx
+
+# Create title slide
+node skills/pptx/scripts/pptx_advanced.js --action title-slide \
+  --title "My Presentation" \
+  --subtitle "Quarterly Review" \
+  --author "John Doe" \
+  --theme blue \
+  --output title.pptx
+
+# Create agenda slide
+node skills/pptx/scripts/pptx_advanced.js --action agenda \
+  --theme green \
+  --output agenda.pptx
+
+# Create comparison slide (before/after)
+node skills/pptx/scripts/pptx_advanced.js --action comparison \
+  --title "Process Improvement" \
+  --theme purple \
+  --output comparison.pptx
+```
+
+The advanced script provides:
+- **JSON-driven**: Define entire presentations in JSON format
+- **Multiple themes**: Blue, green, red, purple color schemes
+- **Pre-built layouts**: Title, agenda, comparison, chart, bullet slides
+- **Chart integration**: Bar, line, pie charts with data
+- **Table support**: Formatted tables with styling
+
+**Example JSON structure** (see `skills/pptx/examples/sample_presentation.json`):
+```json
+{
+  "author": "Your Name",
+  "title": "Presentation Title",
+  "theme": "blue",
+  "slides": [
+    {
+      "elements": [
+        { "type": "title", "text": "Welcome" },
+        { "type": "bullet", "items": [...] },
+        { "type": "chart", "chartType": "bar", "data": [...] }
+      ]
+    }
+  ]
+}
 ```
 
 **Best Practices**:
@@ -565,6 +649,49 @@ doc["word/document.xml"].revert_deletion(del_node)  # Reject deletion
 doc.save()
 ```
 
+### Advanced Word Document Generation
+
+For JSON-driven document creation with professional formatting:
+
+```bash
+# Create document from JSON configuration
+node skills/docx/scripts/docx_advanced.js --action from-json \
+  --input content.json \
+  --output document.docx
+
+# Create formatted report with headers, footers, and TOC
+node skills/docx/scripts/docx_advanced.js --action report \
+  --title "Quarterly Business Report" \
+  --author "Jane Smith" \
+  --output report.docx
+
+# Create business letter
+node skills/docx/scripts/docx_advanced.js --action letter \
+  --author "John Doe" \
+  --output letter.docx
+```
+
+The advanced script provides:
+- **JSON-driven**: Define entire documents in JSON format
+- **Pre-built templates**: Report, letter, meeting notes
+- **Professional formatting**: Headers, footers, page numbers
+- **Table of contents**: Automatic TOC generation (when opened in Word)
+- **Structured content**: Headings, paragraphs, bullets, tables
+
+**Example JSON structure** (see `skills/docx/examples/sample_document.json`):
+```json
+{
+  "title": "Document Title",
+  "author": "Author Name",
+  "content": [
+    { "type": "heading", "level": 1, "text": "Chapter 1" },
+    { "type": "paragraph", "text": "Introduction text..." },
+    { "type": "bullet", "text": "Bullet point", "level": 0 },
+    { "type": "table", "rows": [[...], [...]] }
+  ]
+}
+```
+
 **Best Practices**:
 
 - Use built-in heading styles for TOC generation
@@ -573,6 +700,152 @@ doc.save()
 - Use styles instead of direct formatting
 - Validate document structure before saving
 - Consider accessibility (alt text for images, proper heading hierarchy)
+
+---
+
+id: chrome
+name: Chrome Browser Automation
+triggers: Chrome, browser automation, dashboard, Data Studio, Google Analytics, GTM, web scraping, monitor website, screenshot, GA4, analytics
+
+---
+
+**Description**: Automate Chrome browser interactions for monitoring dashboards, extracting web data, and validating analytics implementations.
+
+**Capabilities**:
+
+- Monitor Google Data Studio dashboards for anomalies
+- Detect stale data, loading issues, and chart problems
+- Extract data from web tables and dashboards
+- Check Google Tag Manager (GTM) configurations
+- View GA4 and analytics data layers
+- Capture screenshots for comparison
+- Automate repetitive web tasks
+
+**Implementation Guidelines**:
+
+### Dashboard Monitoring
+
+Monitor a dashboard for anomalies and data freshness:
+
+```bash
+# Single check
+node skills/chrome/scripts/monitor_dashboard.js \
+  --url "https://datastudio.google.com/reporting/..." \
+  --output dashboard_status.json
+
+# Continuous monitoring with multiple checks
+node skills/chrome/scripts/monitor_dashboard.js \
+  --url "https://datastudio.google.com/reporting/..." \
+  --checks 10 \
+  --interval 300 \
+  --output dashboard_status.json
+```
+
+The monitor script detects:
+- Error messages and alerts
+- Loading states that are stuck
+- Empty data tables
+- Charts with no data or incorrect sizing
+- Missing or stale metrics
+
+### GTM and Analytics Validation
+
+Check Google Tag Manager implementation and data layer:
+
+```bash
+node skills/chrome/scripts/check_gtm.js \
+  --url "https://example.com" \
+  --output gtm_report.json
+```
+
+This checks for:
+- GTM container presence and ID
+- Data layer events and structure
+- GA4 measurement IDs
+- Universal Analytics (deprecated) usage
+- Analytics network requests
+
+### Data Extraction
+
+Extract data from web pages using CSS selectors:
+
+```bash
+# Extract table data as JSON
+node skills/chrome/scripts/extract_data.js \
+  --url "https://example.com/data" \
+  --selector "table.data-table" \
+  --format json \
+  --output data.json
+
+# Extract as CSV
+node skills/chrome/scripts/extract_data.js \
+  --url "https://example.com/metrics" \
+  --selector ".metric-card" \
+  --format csv \
+  --output metrics.csv
+```
+
+### JavaScript-based Automation
+
+For more complex automation, use Playwright directly in JavaScript:
+
+```javascript
+const { chromium } = require('playwright');
+
+async function automateTask() {
+  const browser = await chromium.launch({ headless: false });
+  const page = await browser.newPage();
+  
+  // Navigate to dashboard
+  await page.goto('https://datastudio.google.com/reporting/...');
+  
+  // Wait for data to load
+  await page.waitForSelector('.data-loaded', { timeout: 30000 });
+  
+  // Extract metrics
+  const metrics = await page.$$eval('.metric-value', elements => 
+    elements.map(el => ({
+      label: el.getAttribute('aria-label'),
+      value: el.textContent.trim()
+    }))
+  );
+  
+  // Take screenshot
+  await page.screenshot({ path: 'dashboard.png', fullPage: true });
+  
+  // Check for errors
+  const errors = await page.$$('.error-message');
+  if (errors.length > 0) {
+    console.log('Errors detected:', errors.length);
+  }
+  
+  await browser.close();
+  return metrics;
+}
+```
+
+**Anomaly Detection Patterns**:
+
+The monitoring system checks for common dashboard issues:
+
+1. **Stale Data**: Metrics that haven't updated within expected timeframe
+2. **Loading Failures**: Elements stuck in loading state
+3. **Empty Visualizations**: Charts or tables with no data
+4. **Error Messages**: Visible error indicators or alerts
+5. **Delivery Issues**: Failed data fetches or network errors
+6. **Performance Problems**: Slow load times or timeouts
+
+**Best Practices**:
+
+- Use headless mode for scheduled monitoring (`--headless true`)
+- Set appropriate timeouts for slow-loading dashboards
+- Store baseline snapshots to compare against for anomaly detection
+- Schedule regular checks during business hours
+- Alert on consecutive failures, not single instances
+- Capture screenshots when anomalies are detected for debugging
+- Use network request monitoring to catch API failures
+- Validate data layer structure matches expected schema
+- Test GTM configurations in both desktop and mobile viewports
 
 ---
 
@@ -766,6 +1039,8 @@ Skills can be combined for complex workflows:
 | Data Report            | xlsx + docx             | Extract data from Excel, create formatted Word report |
 | Presentation from Data | xlsx + pptx             | Analyze Excel data, generate charts in PowerPoint     |
 | Document Archive       | pdf + docx              | Convert Word documents to PDF, merge into archive     |
+| Dashboard to Report    | chrome + xlsx + pptx    | Monitor dashboard, extract data, create presentation  |
+| Analytics Audit        | chrome + docx           | Check GTM/GA4 setup, generate audit report            |
 | Bulk Processing        | parallel-ops + any      | Process multiple documents simultaneously             |
 | Complex Project        | task-orchestrator + all | Plan and execute multi-format document workflow       |
 

@@ -1,0 +1,113 @@
+{
+  "author": "AionUi Cowork",
+  "title": "Sample Presentation",
+  "subject": "Demonstration of Advanced Features",
+  "company": "AionUi",
+  "theme": "blue",
+  "slides": [
+    {
+      "elements": [
+        {
+          "type": "title",
+          "text": "Advanced PowerPoint Generation"
+        },
+        {
+          "type": "text",
+          "text": "Automated Presentation Creation with JSON",
+          "x": 0.5,
+          "y": 3.5,
+          "w": "90%",
+          "fontSize": 24,
+          "align": "center"
+        }
+      ]
+    },
+    {
+      "elements": [
+        {
+          "type": "text",
+          "text": "Key Features",
+          "x": 0.5,
+          "y": 0.5,
+          "fontSize": 32,
+          "bold": true
+        },
+        {
+          "type": "bullet",
+          "items": [
+            { "text": "JSON-driven presentation generation", "options": { "bullet": true } },
+            { "text": "Multiple chart types support", "options": { "bullet": true } },
+            { "text": "Custom themes and branding", "options": { "bullet": true } },
+            { "text": "Image and table integration", "options": { "bullet": true } }
+          ],
+          "x": 1,
+          "y": 1.5,
+          "fontSize": 20
+        }
+      ]
+    },
+    {
+      "elements": [
+        {
+          "type": "text",
+          "text": "Sample Data Chart",
+          "x": 0.5,
+          "y": 0.5,
+          "fontSize": 28,
+          "bold": true
+        },
+        {
+          "type": "chart",
+          "chartType": "bar",
+          "title": "Quarterly Revenue",
+          "data": [
+            {
+              "name": "Q1",
+              "labels": ["Revenue", "Costs", "Profit"],
+              "values": [100000, 60000, 40000]
+            },
+            {
+              "name": "Q2",
+              "labels": ["Revenue", "Costs", "Profit"],
+              "values": [120000, 65000, 55000]
+            },
+            {
+              "name": "Q3",
+              "labels": ["Revenue", "Costs", "Profit"],
+              "values": [140000, 70000, 70000]
+            }
+          ],
+          "x": 1,
+          "y": 1.5,
+          "w": 8,
+          "h": 4
+        }
+      ]
+    },
+    {
+      "elements": [
+        {
+          "type": "text",
+          "text": "Data Table Example",
+          "x": 0.5,
+          "y": 0.5,
+          "fontSize": 28,
+          "bold": true
+        },
+        {
+          "type": "table",
+          "rows": [
+            ["Metric", "Q1", "Q2", "Q3", "Total"],
+            ["Revenue", "$100K", "$120K", "$140K", "$360K"],
+            ["Customers", "1000", "1200", "1400", "3600"],
+            ["Satisfaction", "4.2", "4.4", "4.5", "4.4"]
+          ],
+          "x": 1,
+          "y": 1.5,
+          "w": 8,
+          "h": 3
+        }
+      ]
+    }
+  ]
+}
