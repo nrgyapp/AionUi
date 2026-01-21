@@ -332,9 +332,27 @@ async function createReport(config) {
             rows: [
               new TableRow({
                 children: [
-                  new TableCell({ children: [new Paragraph({ text: 'Metric', bold: true })] }),
-                  new TableCell({ children: [new Paragraph({ text: 'Value', bold: true })] }),
-                  new TableCell({ children: [new Paragraph({ text: 'Change', bold: true })] }),
+                  new TableCell({ 
+                    children: [
+                      new Paragraph({ 
+                        children: [new TextRun({ text: 'Metric', bold: true })]
+                      })
+                    ]
+                  }),
+                  new TableCell({ 
+                    children: [
+                      new Paragraph({ 
+                        children: [new TextRun({ text: 'Value', bold: true })]
+                      })
+                    ]
+                  }),
+                  new TableCell({ 
+                    children: [
+                      new Paragraph({ 
+                        children: [new TextRun({ text: 'Change', bold: true })]
+                      })
+                    ]
+                  }),
                 ],
               }),
               new TableRow({

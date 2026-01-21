@@ -45,6 +45,9 @@ function parseArgs() {
       case '--title':
         config.params.title = args[++i];
         break;
+      case '--file2':
+        config.params.file2 = args[++i];
+        break;
       case '--help':
         console.log(`
 Advanced Excel Automation
