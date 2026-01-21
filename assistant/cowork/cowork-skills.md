@@ -77,6 +77,89 @@ Where:
 
 ---
 
+id: chrome
+name: Chrome Browser Automation
+triggers: Chrome, browser automation, web scraping, scrape website, fill form, automate browser, headless browser, screenshot, test website, puppeteer, selenium, web automation
+
+---
+
+**Description**: Automate Chrome browser for web scraping, form filling, testing, and data extraction with support for headless mode and cross-platform compatibility.
+
+**Capabilities**:
+
+- Web scraping with JavaScript rendering support
+- Automated form filling and submission
+- Screenshot and PDF generation from web pages
+- Automated browser testing
+- Headless mode for CI/CD pipelines
+- Cross-platform support (Windows, macOS, Linux)
+- Data extraction from dynamic websites
+- Multi-step navigation automation
+
+**Implementation Guidelines**:
+
+Use the built-in Chrome automation scripts from `skills/chrome/scripts/`:
+
+```bash
+# Fill web forms automatically
+node skills/chrome/scripts/fill_form.js <url> <form_data.json> [output_screenshot.png]
+
+# Scrape data from websites
+node skills/chrome/scripts/scrape_data.js <url> <selectors.json> <output.json>
+
+# Capture screenshots
+node skills/chrome/scripts/screenshot.js <url> <output.png> [--fullPage] [--selector='css-selector']
+
+# Generate PDFs from web pages
+node skills/chrome/scripts/generate_pdf.js <url> <output.pdf> [--landscape] [--format=A4]
+
+# Run automated tests
+node skills/chrome/scripts/test_page.js <url> <test_config.json>
+```
+
+**JavaScript Quick Reference**:
+
+```javascript
+const puppeteer = require('puppeteer');
+
+// Launch browser with Windows compatibility
+const browser = await puppeteer.launch({
+  headless: true,
+  args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+});
+
+const page = await browser.newPage();
+await page.goto('https://example.com');
+
+// Extract data
+const data = await page.evaluate(() => ({
+  title: document.title,
+  links: Array.from(document.querySelectorAll('a')).map(a => a.href)
+}));
+
+await browser.close();
+```
+
+**Best Practices**:
+
+- Always close browsers in finally blocks to prevent memory leaks
+- Use headless mode in CI/CD pipelines
+- Set appropriate timeouts for page loads and element waits
+- Handle navigation carefully with waitForNavigation
+- Take screenshots on errors for debugging
+- Use unique CSS selectors (IDs or data attributes)
+- Test locally in headed mode before deploying
+- For Windows: Set CHROME_PATH environment variable if needed
+
+**Templates**:
+
+See `skills/chrome/assets/templates/` for pre-built automation templates:
+- `form_automation_template.js` - Form filling template
+- `scraper_template.js` - Web scraping template  
+- `testing_template.js` - Browser testing template
+
+---
+
 id: xlsx
 name: Excel Spreadsheet Handler
 triggers: Excel, spreadsheet, .xlsx, data table, budget, financial model, chart, graph, tabular data, xls, csv to excel, data analysis
@@ -90,12 +173,16 @@ triggers: Excel, spreadsheet, .xlsx, data table, budget, financial model, chart,
 - Create Excel workbooks with multiple sheets
 - Read and parse .xlsx/.xls files
 - Generate charts (bar, line, pie, scatter, combo)
-- Apply formulas and calculations (SUM, AVERAGE, VLOOKUP, etc.)
+- Apply formulas and calculations (SUM, AVERAGE, VLOOKUP, SUMIFS, etc.)
 - Format cells (colors, borders, fonts, alignment, conditional formatting)
 - Create pivot tables and data summaries
 - Data validation and dropdown lists
 - Export filtered/sorted data
 - Merge cells and apply cell styles
+- **NEW: Create financial models with multi-sheet support**
+- **NEW: Advanced formulas (VLOOKUP, SUMIFS, INDEX-MATCH)**
+- **NEW: Chart generation scripts (bar, scatter, pie)**
+- **NEW: CSV import/export with formatting**
 
 **Implementation Guidelines**:
 
@@ -136,6 +223,33 @@ For recalculating formulas in existing spreadsheets, use the recalc script:
 python skills/xlsx/recalc.py <input.xlsx> <output.xlsx>
 ```
 
+**NEW: Advanced Excel Scripts**
+
+```bash
+# Create comprehensive financial models
+node skills/xlsx/scripts/create_financial_model.js <config.json> <output.xlsx>
+
+# Generate charts from data
+node skills/xlsx/scripts/create_charts.js <data.json> <output.xlsx>
+
+# Convert CSV to Excel with formatting
+node skills/xlsx/scripts/csv_to_excel.js <input.csv> <output.xlsx> [--header-row] [--auto-format]
+
+# Export Excel to CSV
+node skills/xlsx/scripts/excel_to_csv.js <input.xlsx> <output_dir> [--all-sheets] [--sheet-name="SheetName"]
+```
+
+**Financial Model Example**:
+
+The financial model script creates multi-sheet models with:
+- Assumptions sheet (inputs in blue, formulas in black)
+- Income Statement with dynamic formulas
+- Balance Sheet (optional)
+- Cash Flow Statement (optional)
+- Dashboard with charts (optional)
+
+See `skills/xlsx/assets/templates/financial_model_config.json` for configuration example.
+
 **Python Quick Reference**:
 
 ```python
@@ -172,7 +286,7 @@ triggers: PowerPoint, presentation, .pptx, slides, slide deck, pitch deck, ppt, 
 
 ---
 
-**Description**: Create professional presentations with text, images, charts, diagrams, and consistent theming.
+**Description**: Create professional presentations with text, images, charts, diagrams, speaker notes, and consistent theming.
 
 **Capabilities**:
 
@@ -182,11 +296,30 @@ triggers: PowerPoint, presentation, .pptx, slides, slide deck, pitch deck, ppt, 
 - Create charts and diagrams
 - Apply themes, layouts, and master slides
 - Generate speaker notes
-- Add animations and transitions
+- **NEW: Add slide transitions**
+- **NEW: Support for embedded media**
+- **NEW: Advanced speaker notes functionality**
 - Create tables and SmartArt-style diagrams
 - Export to PDF, images, or video
 
 **Implementation Guidelines**:
+
+**NEW: Professional Presentation Script**:
+
+```bash
+# Create complete presentations with advanced features
+node skills/pptx/scripts/create_presentation.js <config.json> <output.pptx>
+```
+
+The script supports:
+- Title slides with custom branding
+- Content slides with bullets, columns, or tables
+- Charts (bar, line, pie, scatter)
+- Speaker notes for each slide
+- Custom backgrounds and colors
+- Two-column layouts
+
+See `skills/pptx/assets/templates/business_presentation_template.json` for complete example.
 
 ```javascript
 // Use pptxgenjs for Node.js
@@ -283,7 +416,7 @@ triggers: PDF, .pdf, form, extract text, merge pdf, split pdf, combine pdf, pdf 
 
 ---
 
-**Description**: Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms.
+**Description**: Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, handling forms, and adding annotations.
 
 **Capabilities**:
 
@@ -293,11 +426,61 @@ triggers: PDF, .pdf, form, extract text, merge pdf, split pdf, combine pdf, pdf 
 - Extract tables and structured data
 - Fill and create PDF forms (both fillable and non-fillable)
 - Add watermarks, headers, footers
-- Add annotations and comments
+- **NEW: Add annotations and comments with pdf-lib**
+- **NEW: Dynamic data integration for PDF templates**
+- **NEW: JavaScript-based PDF merging (in addition to Python)**
 - Compress PDF file size
 - Convert PDFs to/from other formats
 - Handle encrypted/password-protected PDFs
 - OCR for scanned documents
+
+**NEW: Advanced PDF Scripts**:
+
+```bash
+# Annotate PDFs with text, highlights, and watermarks
+node skills/pdf/scripts/annotate_pdf.js <input.pdf> <annotations.json> <output.pdf>
+
+# Fill PDF templates with dynamic data
+node skills/pdf/scripts/fill_pdf_template.js <template.pdf> <data.json> <output.pdf>
+
+# Merge PDFs using JavaScript (pdf-lib)
+node skills/pdf/scripts/merge_pdfs_js.js <output.pdf> <input1.pdf> <input2.pdf> ...
+```
+
+**Annotation Example**:
+
+```json
+[
+  {
+    "type": "text",
+    "page": 1,
+    "x": 50,
+    "y": 50,
+    "text": "Important Note",
+    "fontSize": 14,
+    "bold": true,
+    "color": "FF0000"
+  },
+  {
+    "type": "highlight",
+    "page": 1,
+    "x": 100,
+    "y": 200,
+    "width": 200,
+    "height": 20,
+    "color": "FFFF00",
+    "opacity": 0.3
+  },
+  {
+    "type": "watermark",
+    "page": 1,
+    "text": "CONFIDENTIAL",
+    "fontSize": 60,
+    "color": "FF0000",
+    "opacity": 0.2
+  }
+]
+```
 
 ### PDF Form Filling Workflow
 
@@ -435,7 +618,7 @@ triggers: Word, document, .docx, report, letter, memo, manuscript, essay, paper,
 
 ---
 
-**Description**: Create and manipulate Word documents with rich formatting, tables, headers, footers, and table of contents.
+**Description**: Create and manipulate Word documents with rich formatting, tables, headers, footers, table of contents, and professional styling.
 
 **Capabilities**:
 
@@ -443,7 +626,9 @@ triggers: Word, document, .docx, report, letter, memo, manuscript, essay, paper,
 - Apply styles and templates
 - Insert tables and nested lists
 - Add headers, footers, page numbers
-- Generate table of contents
+- **NEW: Generate table of contents automatically**
+- **NEW: Professional document templates (project reports, business docs)**
+- **NEW: Advanced styling with headings, references, and citations**
 - Insert images and shapes
 - Track changes and comments
 - Add footnotes and endnotes
@@ -452,6 +637,25 @@ triggers: Word, document, .docx, report, letter, memo, manuscript, essay, paper,
 - Apply custom themes and fonts
 
 **Implementation Guidelines**:
+
+**NEW: Professional Document Generator**:
+
+```bash
+# Create professional documents with advanced features
+node skills/docx/scripts/create_professional_doc.js <config.json> <output.docx>
+```
+
+The script supports:
+- Title pages with metadata
+- Automatic table of contents
+- Multi-level headings (H1, H2, H3)
+- Bullet and numbered lists
+- Tables with formatting
+- Headers and footers with page numbers
+- References section
+- Speaker notes
+
+See `skills/docx/assets/templates/project_report_template.json` for complete example.
 
 ```javascript
 // Use docx package for Node.js
